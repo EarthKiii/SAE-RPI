@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Tek-It-Izy's intranet</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      font-family: Verdana, sans-serif;
+    }
+
+    body {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #action-form {
+      height: 25%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    #action-form>label {
+      font-size: 2em;
+    }
+
+    #action-form>input {
+      padding: 1em;
+      border-radius: 1em;
+    }
+  </style>
+</head>
+
+<body> 
+  <h1>Tek-It-Izy's intranet</h1> 
+  <form id="action-form">
+    <label for="action">Select an action: </label>
+    <select name="action">
+      <option value="">--Please choose an option--</option> 
+      <option value="https://raspb203.univ-lr.fr">Default site</option> 
+      <option value="https://www.tek-it-izy.org">Public site</option> 
+      <option value="http://intranet.tek-it-izy.org:2080/folder/">A empty folder [Test Index]</option> 
+      <option value="http://intranet.tek-it-izy.org:2080/notavalidpath.txt">Inexistent path [404]</option> 
+      <option value="http://intranet.tek-it-izy.org:2080/chmod700file.txt">Can't access this path (os permissions) [403] </option> 
+      <option value="logout">Can't access this path (auth permissions) [401]</option>
+    </select>
+    <input type="submit" value="Submit">
+  </form>
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if (urlParams.has('action')) {
+      const action = urlParams.get('action')
+      if (action.startsWith("http")) {
+        const link = document.createElement("a");
+        link.innerText = action;
+        link.href = action;
+        document.body.appendChild(link);
+      }
+      else if (action == "logout") { 
+	const headers = new Headers();
+	headers.set('Authorization', 'Basic ' + btoa("logout:dummy")); 
+	fetch("http://intranet.tek-it-izy.org:2080/", {
+          method: "GET",
+          headers: headers
+        });
+      }
+      else {
+        window.location.replace('/');
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Tek-It-Izy's public website</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      font-family: Verdana, sans-serif;
+    }
+
+    body {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #action-form {
+      height: 25%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    #action-form>label {
+      font-size: 2em;
+    }
+
+    #action-form>input {
+      padding: 1em;
+      border-radius: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Tek-It-Izy's public website</h1>
+  <form id="action-form">
+    <label for="action">Select an action: </label>
+    <select name="action">
+      <option value="">--Please choose an option--</option>
+      <option value="http://raspb203.univ-lr.fr">Default site</option>
+      <option value="http://intranet.tek-it-izy.org:2080/">Intranet site</option>
+      <option value="https://www.tek-it-izy.org/folder/">A empty folder [Test Index]</option>
+      <option value="https://www.tek-it-izy.org/notavalidpath.txt">Inexistent path [404]</option>
+      <option value="https://www.tek-it-izy.org/chmod700file.txt">Can't access this path (os permissions) [403]
+      </option>
+    </select>
+    <input type="submit" value="Submit">
+  </form>
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if (urlParams.has('action')) {
+      const action = urlParams.get('action')
+      if (action.startsWith("http")) {
+        const link = document.createElement("a");
+        link.innerText = action;
+        link.href = action;
+        document.body.appendChild(link);
+      }
+      else {
+        window.location.replace('/');
+      }
+    }
+  </script>
+</body>
+
+</html>
