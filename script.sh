@@ -27,13 +27,13 @@ sudo mkdir -p /var/www/html/users_pages/bob
 sudo useradd -d /var/www/html/users_pages/bob bob
 (echo bob; echo bob) | sudo passwd bob
 sudo chown bob:bob /var/www/html/users_pages/bob
-sudo chmod -R 700 /var/www/html/users_pages/bob
+sudo chmod -R 755 /var/www/html/users_pages/bob
 
 sudo mkdir /var/www/html/users_pages/alice
 sudo useradd -d /var/www/html/users_pages/alice alice
 (echo alice; echo alice) | sudo passwd alice 
 sudo chown alice:alice /var/www/html/users_pages/alice
-sudo chmod -R 700 /var/www/html/users_pages/alice
+sudo chmod -R 755 /var/www/html/users_pages/alice
 
 
 
