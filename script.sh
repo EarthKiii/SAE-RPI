@@ -17,7 +17,7 @@ sudo mv -f SAE-RPI/apache2/sites-available/www.tek-it-izy.conf /etc/apache2/site
 sudo mv -f SAE-RPI/apache2/sites-available/intranet.tek-it-izy.conf /etc/apache2/sites-available/intranet.tek-it-izy.conf
 
 sudo mkdir /etc/apache2/certs
-sudo mv -f SAE-RPI/apache2/certs/apache.crt /etc/apache2/certs/apache.crt
+sudo openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/apache2/certs/apache.crt -keyout /etc/apache2/certs/apache.key 
 
 # Installation of the Default Website
 sudo mv -f SAE-RPI/html/* /var/www/html/
